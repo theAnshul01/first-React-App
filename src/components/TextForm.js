@@ -1,6 +1,7 @@
 import React , {useState} from 'react'
 
 export default function TextForm(props) {
+    const [text, setText] = useState("");
     const handleUpClick = ()=>{
         // console.log("uppercase button clicked");
         let newtext = text.toUpperCase();
@@ -13,9 +14,17 @@ export default function TextForm(props) {
         setText(newtext);
         props.showAlert('Converted to Lowercase' , 'success');
     }
+    
+    // if(document.getElementById('myBox').value != null){
+    // let textElement = document.getElementById('myBox').value;
+    // previousText = textElement;
+    // }
+    
     const handleOnChange = (event)=>{
         // console.log("handling on change");
         setText(event.target.value);
+
+        
     }
     const clearText = (event)=>{
         setText("");
@@ -27,7 +36,18 @@ export default function TextForm(props) {
         navigator.clipboard.writeText(text.value);
         props.showAlert('Text Copied' , 'success');
     }
-    const [text, setText] = useState("");
+
+//     let previousText = text;
+//     const handleUndo = () => {
+//     console.log("undo running")
+//     const textElement = document.getElementById('myBox'); // Replace with the actual ID of your input element
+//     if (previousText !== '') {
+//         textElement.value = previousText;
+//     }
+// };
+
+
+    
   return (
     <>
     <div className='container' style={{color : props.mode==='light'?'black':'white'}}>
@@ -40,6 +60,7 @@ export default function TextForm(props) {
             <button className="btn btn-primary my-2 mx-2" onClick={handleUpClick}>Convert to Uppercase</button>
             <button className="btn btn-primary my-2" onClick={handleLowClick}>Convert to Lowercase</button>
             <button className="btn btn-primary my-2 mx-2" onClick={handleCopy}>Copy Text</button>
+            {/* <button className="btn btn-success my-2" onClick={handleUndo}>Undo</button> */}
         </div>
     </div>
     <div className="container my-3" style={{color : props.mode==='light'?'black':'white'}}>
