@@ -5,11 +5,13 @@ export default function TextForm(props) {
         // console.log("uppercase button clicked");
         let newtext = text.toUpperCase();
         setText(newtext);
+        props.showAlert('Converted to Uppercase' , 'success');
     }
     const handleLowClick = ()=>{
         // console.log("uppercase button clicked");
         let newtext = text.toLowerCase();
         setText(newtext);
+        props.showAlert('Converted to Lowercase' , 'success');
     }
     const handleOnChange = (event)=>{
         // console.log("handling on change");
@@ -17,6 +19,13 @@ export default function TextForm(props) {
     }
     const clearText = (event)=>{
         setText("");
+        props.showAlert('Text has been cleared', 'warning');
+    }
+    const handleCopy=()=>{
+        let text = document.getElementById('myBox');
+        text.select();
+        navigator.clipboard.writeText(text.value);
+        props.showAlert('Text Copied' , 'success');
     }
     const [text, setText] = useState("");
   return (
@@ -30,6 +39,7 @@ export default function TextForm(props) {
             <button className='btn btn-warning my-2 ' onClick={clearText}> Clear text</button>
             <button className="btn btn-primary my-2 mx-2" onClick={handleUpClick}>Convert to Uppercase</button>
             <button className="btn btn-primary my-2" onClick={handleLowClick}>Convert to Lowercase</button>
+            <button className="btn btn-primary my-2 mx-2" onClick={handleCopy}>Copy Text</button>
         </div>
     </div>
     <div className="container my-3" style={{color : props.mode==='light'?'black':'white'}}>
