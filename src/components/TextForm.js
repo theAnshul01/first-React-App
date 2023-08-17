@@ -27,13 +27,16 @@ export default function TextForm(props) {
         
     }
     const clearText = (event)=>{
-        setText("");
-        props.showAlert('Text has been cleared', 'warning');
+        
+            setText("");
+            props.showAlert('Text has been cleared', 'warning');
+        
     }
     const handleCopy=()=>{
         let text = document.getElementById('myBox');
         text.select();
         navigator.clipboard.writeText(text.value);
+        document.getSelection().removeAllRanges();
         props.showAlert('Text Copied' , 'success');
     }
 
@@ -56,17 +59,17 @@ export default function TextForm(props) {
             {/* <label for="myBox" className="form-label"></label> */}
             <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8" style={{backgroundColor: props.mode==='light'?'white' : '#23272f' , 
         color: props.mode==='light'?'black':'white'}}></textarea>
-            <button className='btn btn-warning my-2 ' onClick={clearText}> Clear text</button>
-            <button className="btn btn-primary my-2 mx-2" onClick={handleUpClick}>Convert to Uppercase</button>
-            <button className="btn btn-primary my-2" onClick={handleLowClick}>Convert to Lowercase</button>
-            <button className="btn btn-primary my-2 mx-2" onClick={handleCopy}>Copy Text</button>
+            <button disabled={text.length===0} className='btn btn-warning my-2 mx-1' onClick={clearText}> Clear text</button>
+            <button disabled={text.length===0} className="btn btn-primary my-2 mx-1" onClick={handleUpClick}>Convert to Uppercase</button>
+            <button disabled={text.length===0} className="btn btn-primary my-2 mx-1" onClick={handleLowClick}>Convert to Lowercase</button>
+            <button disabled={text.length===0} className="btn btn-primary my-2 mx-1" onClick={handleCopy}>Copy Text</button>
             {/* <button className="btn btn-success my-2" onClick={handleUndo}>Undo</button> */}
         </div>
     </div>
     <div className="container my-3" style={{color : props.mode==='light'?'black':'white'}}>
         <h2>Your text summary</h2>
-        <p>{text.length>0?text.split(" ").length:"0"} words and {text.length} characters </p>
-        <p>{0.008 * text.split(" ").length } minutes to read</p>
+        <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words and {text.length} characters </p>
+        <p>{text.length>0?0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length:0 } minutes to read</p>
         
         <h2>Preview</h2>
         <p>{text.length>0?text:"Enter something in the above textbox to preview"}</p>

@@ -9,8 +9,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Link,
-  Outlet,
 } from "react-router-dom";
 
 function App() {
@@ -32,12 +30,12 @@ function App() {
     if(mode === 'light'){
       setMode('dark');
       document.body.style.backgroundColor = '#23272f';
-      // showAlert('Dark mode has been enabled' , 'success');
+      showAlert('Dark mode has been enabled' , 'success');
       // document.title = "TextUtils - Dark Mode"
     }else{
       setMode('light');
       document.body.style.backgroundColor = 'white';
-      // showAlert('Light mode has been enabled' , 'success');
+      showAlert('Light mode has been enabled' , 'success');
       // document.title = "TextUtils - Light Mode"
     }
   }
@@ -49,7 +47,7 @@ function App() {
           <div className="container">
           <Routes>
             <Route exact path="/" element={<TextForm heading="Enter the text below: " mode={mode} showAlert={showAlert}  />} />
-            <Route exact path="/about" element={<About/>}>
+            <Route exact path="/about" element={<About mode={mode} toggleMode={toggleMode}/>}>
             </Route>
           </Routes>
           </div>
